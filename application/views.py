@@ -29,3 +29,20 @@ def articles1(request, arg1):
 
 def articles2(request, arg1, arg2):
     return HttpResponse(arg1 + '-' + arg2)
+
+
+def articles3(request, y, m, d):
+    return HttpResponse(y + '-' + m + '-' + d)
+
+
+def articles4(request, yyyy, mm, dd):
+    return HttpResponse(yyyy + '-' + mm + '-' + dd)
+
+
+def login(request, arg):
+    if request.method == 'POST':
+        u = request.POST.get('username');
+        p = request.POST.get('password');
+        if u == 'admin' and p == '123456':
+            return HttpResponse('登录成功!')
+    return render(request, 'login.html', {'arg': arg})  # v3为字典值
