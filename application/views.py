@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from application import models
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -16,3 +17,15 @@ def index(request):
     for item in temp:
         user_list.append(item.username)
     return render(request, 'index.html', {'user_list': user_list})  # v3为字典值
+
+
+def article(request):
+    return HttpResponse(request.get_raw_uri())
+
+
+def articles1(request, arg1):
+    return HttpResponse(arg1)
+
+
+def articles2(request, arg1, arg2):
+    return HttpResponse(arg1 + '-' + arg2)

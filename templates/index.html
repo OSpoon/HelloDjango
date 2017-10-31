@@ -7,6 +7,7 @@
 </head>
 <body>
 <img src="{% static 'images/ic_launcher.png' %}  " width="65px" height="65px">
+<img src="static/images/ic_launcher.png" width="65px" height="65px">
 <form action="" method="post">
     <p>姓名<input type="text" name="username"/></p>
     <p><input type="submit" value="submit"/></p>
@@ -16,9 +17,7 @@
     {% endfor %}
 
     {% if user_list %}
-        <p>1.{{ user_list }}</p>
-    {% elif user_list %}
-        <p>2.{{ user_list }}</p>
+        <p>{{ user_list }}</p>
     {% else %}
         <p>已清空</p>
     {% endif %}
