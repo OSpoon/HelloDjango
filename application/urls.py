@@ -19,17 +19,6 @@ from application import views
 
 urlpatterns = [
     # 正则匹配
-    url(r'^admin/', admin.site.urls),
-    # url(r'^$', views.index),
-    url(r'^application/', include('application.urls')),
-    # url(r'^article/2017/', views.article),
-    # # 加括号分组参数
-    # url(r'^articles/([0-9]{4})/$', views.articles1),
-    # # 加括号分组多个参数
-    # url(r'^articles/([0-9]{4})/([0-9]{2})/$', views.articles2),
-    # # 加括号分组多个参数指定匹配参数名s
-    # url(r'^articles/(?P<y>[0-9]{4})/(?P<m>[0-9]{2})/(?P<d>[0-9]{2})/$', views.articles3),
-    # # 参数名称一致,正则匹配参数跟v3内的参数名称重复,参数值会被v3中的值覆盖
-    # url(r'^articles/', views.articles4, {'yyyy': '2017', 'mm': '10', 'dd': '21'}),
-    # url(r'^login/', views.login, {'arg': '2017'}, name='alex'),
+    url(r'login/', views.login, {'arg': '2017'}, name='alex'),
+    url(r'index/', views.home),
 ]

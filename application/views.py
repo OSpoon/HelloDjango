@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from application import models
 from django.http import HttpResponse
 
@@ -44,5 +44,10 @@ def login(request, arg):
         u = request.POST.get('username');
         p = request.POST.get('password');
         if u == 'admin' and p == '123456':
-            return HttpResponse('登录成功!')
+            # return HttpResponse('登录成功!')
+            # return render(request, 'index.html')
+            return redirect('/application/index/', {'arg': arg})  # v3为字典值
     return render(request, 'login.html', {'arg': arg})  # v3为字典值
+
+def home(request):
+    return render(request, 'index.html')  # v3为字典值
