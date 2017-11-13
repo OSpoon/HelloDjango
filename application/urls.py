@@ -21,4 +21,5 @@ urlpatterns = [
     # 正则匹配
     url(r'login/', views.login, {'arg': '2017'}, name='alex'),
     url(r'index/', views.home),
+    url(r'ajax_recrive/', views.ajax_recrive),
 ]

@@ -51,3 +51,9 @@ def login(request, arg):
 
 def home(request):
     return render(request, 'index.html')  # v3为字典值
+
+def ajax_recrive(request):
+    if request.method == "POST":
+        print(request.POST)
+        return HttpResponse(request.POST.get("name"))
+    return  HttpResponse("ajax")

@@ -6,7 +6,7 @@
     <title>HelloDjango</title>
 </head>
 <body>
-<img src="{% static 'images/ic_launcher.png' %}  " width="65px" height="65px">
+<img src="{% static 'images/ic_launcher.png' %}" width="65px" height="65px">
 <img src="static/images/ic_launcher.png" width="65px" height="65px">
 <form action="" method="post">
     <p>姓名<input type="text" name="username"/></p>
@@ -22,5 +22,87 @@
         <p>已清空</p>
     {% endif %}
 </form>
+<button onclick="ajaxGET()">AjaxGet</button>
+<button onclick="ajaxPOST()">ajaxPOST</button>
+<button onclick="jqAjax()">jqAjax</button>
+<button onclick="jqAjaxPost()">jqAjaxPost</button>
 </body>
+<script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+<script>
+    function jqAjax() {
+        $.ajax({
+            url: "/application/ajax_recrive/", success: function (result) {
+                alert(result);
+            }
+        });
+    }
+
+    function jqAjaxPost() {
+        $.post("/application/ajax_recrive/", {csrfmiddlewaretoken: '{{ csrf_token }}',"name":"jqajaxpost"}, function (data, status) {
+            alert("Data: " + data + "\nStatus: " + status);
+        });
+    }
+
+    function createAjaxRequest() {
+        var xmlHttp;
+        //①创建实例
+        if (window.XMLHttpRequest) {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlHttp = new XMLHttpRequest();
+        } else {
+            xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        return xmlHttp;
+    }
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function ajaxGET() {
+        var xmlhttp = createAjaxRequest();
+        //②开启监听
+        xmlhttp.onreadystatechange = function () {
+            //readyState=4 status成功返回200
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                alert(xmlhttp.responseText)
+            }
+        }
+        //③指定请求参数
+        xmlhttp.open('GET', '/application/ajax_recrive/', true);
+        //④发送请求
+        xmlhttp.send(null);
+    }
+
+    function ajaxPOST() {
+        var csrftoken = getCookie('csrftoken');
+        var xmlhttp = createAjaxRequest();//
+        //②开启监听
+        xmlhttp.onreadystatechange = function () {
+            //readyState=4 status成功返回200
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                alert(xmlhttp.responseText)
+            }
+        }
+        //③指定请求参数
+        xmlhttp.open('POST', '/application/ajax_recrive/', true);
+        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xmlhttp.setRequestHeader('X-CSRFToken',csrftoken);
+        //④发送请求
+        xmlhttp.send("name=hello");
+    }
+
+</script>
 </html>
